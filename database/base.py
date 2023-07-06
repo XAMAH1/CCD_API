@@ -28,7 +28,8 @@ history_account = Table("history", meta,
                    Column("id", Integer, primary_key=True),
                    Column("login", String(100), nullable=False),
                    Column("id_user", String(40), nullable=False),
-                   Column("date_parish", String(40), nullable=False)
+                   Column("date_parish", String(40), nullable=False),
+                   Column("time_parish", String(40), nullable=False)
                    )
 
 def base_connect():

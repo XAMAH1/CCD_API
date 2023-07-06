@@ -11,7 +11,7 @@ def check(connect):
     while job:
         current_account = random.choice(all_account)
         if current_account not in passed_account:
-            record(connect)
+            record(connect, current_account)
             return current_account
 
 def all_account_get(connect):
