@@ -14,6 +14,15 @@ autme_user = Table("autme_user", meta,
                    Column("date_create", String(40)),
                    )
 
+account = Table("account", meta,
+                   Column("id", Integer, primary_key=True),
+                   Column("login", String(100), nullable=False),
+                   Column("password", String(250), nullable=False),
+                   Column("access_modifier", String(25), nullable=False),
+                   Column("date_attachments", String(40), nullable=False),
+                   Column("date_parish", String(40), nullable=False)
+                   )
+
 def base_connect():
     meta.create_all(engine)
     connect = engine.connect()
