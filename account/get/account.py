@@ -9,4 +9,4 @@ def account(connect):
         current_user = jwt.decode(request.headers["Authorization"].split()[1], SECRET_KEY_PASSWORD, algorithms="HS256")
         return check(connect, current_user["ID"])
     except:
-        return {"success": False, "message": "Необходим токен для авторизации"}
+        return {"success": False, "message": "Не валидный токен авторизации"}

@@ -12,7 +12,7 @@ def user_autme(connect):
             password = jwt.decode(current_user[2], SECRET_KEY_PASSWORD, algorithms="HS256")
             if str(password["password"]) != str(args["password"]):
                 return {"success": False, "message": "Неверный логин или пароль"}, 401
-            token = jwt.encode({"ID": current_user[0]}, SECRET_KEY_PASSWORD, algorithm="HS256")
+            token = jwt.encode({"ID": current_user[0], "mod": current_user[3]}, SECRET_KEY_PASSWORD, algorithm="HS256")
             return {"success": True, "message": token}, 200
         return {"success": False, "message": "Неверный логин или пароль"}, 401
     except Exception as e:
