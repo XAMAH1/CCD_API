@@ -3,17 +3,17 @@ from database.base import *
 from account.get.recording.recording import record
 import datetime
 
-def check(connect):
+def check(connect, id):
     try:
         all_account = all_account_get(connect)
         passed_account = passed_account_get(connect)
-        if len(all_account) == len(passed_account):
+        if len(all_account) <= len(passed_account):
             return {"success": True, "message": "account undefined"}
         job = True
         while job:
             current_account = random.choice(all_account)
             if current_account not in passed_account:
-                record(connect, current_account)
+                record(connect, current_account, id)
                 return current_account
     except:
         return {"success": True, "message": "not account"}
@@ -35,6 +35,6 @@ def passed_account_get(connect):
     result = connect.execute(command)
     current_account = []
     for i in result:
-        if i[3] != "Завершено" or i[3] != "В процессе":
+        if i[3] == "Завершено" or i[3] == "В процессе":
             current_account.append(i[1])
     return current_account
