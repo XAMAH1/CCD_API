@@ -1,0 +1,1 @@
+SECRET_KEY_PASSWORD = "1&#73WBwG6omb&C#"
