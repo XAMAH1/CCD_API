@@ -1,4 +1,5 @@
 from flask import *
+from threading import Thread
 
 from database.base import base_connect
 from user.autme.user import user_autme
@@ -6,6 +7,7 @@ import jwt
 from config import SECRET_KEY_PASSWORD
 from account.get.account import account
 from account.edit.edit import edit
+from examination_config.examination_config_start import config_start_exam
 
 token = jwt.encode({"password": "271004"}, SECRET_KEY_PASSWORD, algorithm="HS256")
 print(token)
@@ -27,4 +29,5 @@ def err_account():
 if __name__ == '__main__':
     connect = base_connect()
     print("Server started")
-    app.run(debug=True)
+    t = Thread(target=config_start_exam, args=(connect,)).start()
+    app.run(debug=True, use_reloader=False)
