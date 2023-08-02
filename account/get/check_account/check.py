@@ -14,16 +14,16 @@ def check(connect, id):
         while job:
             current_account = random.choice(all_account)
             if current_account not in passed_account:
-                record(connect, current_account, id)
-                return get_account_settings(connect, current_account)
+                id = record(connect, current_account, id)
+                return get_account_settings(connect, current_account, id)
     except:
         return {"success": True, "message": "аккаунтов больше нет"}
 
-def get_account_settings(connect, login):
+def get_account_settings(connect, login, id_transaction):
     command = select(account).where(account.c.login == str(login))
     result = connect.execute(command)
     for i in result:
-        return {"login": i[1], "password": i[2]}
+        return {"id": i[0], "login": i[1], "password": i[2], "id_transaction": id_transaction}
 
 def all_account_get(connect):
     now = datetime.datetime.now()
@@ -42,6 +42,6 @@ def passed_account_get(connect):
     result = connect.execute(command)
     current_account = []
     for i in result:
-        if i[3] == "Завершено" or i[3] == "В процессе":
+        if i[3] == "Выполнено" or i[3] == "В процессе":
             current_account.append(i[1])
     return current_account
