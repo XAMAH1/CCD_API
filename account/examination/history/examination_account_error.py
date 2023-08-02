@@ -10,3 +10,4 @@ def examination_account_error(connect):
     for i in result:
         if i[3] == "В процессе":
             time_check_error(connect, i)
+    #   print("-" * 30)
