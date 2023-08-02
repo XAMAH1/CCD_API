@@ -4,7 +4,7 @@ from database.base import base_connect
 from user.autme.user import user_autme
 import jwt
 from config import SECRET_KEY_PASSWORD
-from account.get.account import account
+from account.get.account import account, acc
 token = jwt.encode({"password": "271004"}, SECRET_KEY_PASSWORD, algorithm="HS256")
 print(token)
 
@@ -17,6 +17,10 @@ def autme_user():
 @app.route("/account/get", methods=["GET"])
 def account_get_random():
     return account(connect)
+
+@app.route("/account/update", methods=["GET"])
+def fwefwe():
+    return acc(connect)
 
 if __name__ == '__main__':
     connect = base_connect()
