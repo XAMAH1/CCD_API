@@ -11,6 +11,9 @@ def process_account_edit(connect):
     now = datetime.now()
     success_time = now.strftime("%d.%m.%Y %H:%M:%S")
     command = update(history_account).values({"success": "Выполнено", "date_expiration": success_time}).where(history_account.c.id == args["id_transaction"], history_account.c.id_user == current_user["ID"], history_account.c.success == "В процессе")
-    connect.execute(command)
+    result = connect.execute(command)
     connect.commit()
-    return account(connect)
+    print(result.rowcount)
+    if result.rowcount != 0:
+        return account(connect)
+    return {"success": False, "message": "Ошибка. У аккаунта уже установлен статус"}

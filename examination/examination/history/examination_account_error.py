@@ -9,4 +9,4 @@ def examination_account_error(connect):
     result = connect.execute(command)
     for i in result:
         time_check_error(connect, i)
-    print("-" * 30)
+    #   print("-" * 30)
