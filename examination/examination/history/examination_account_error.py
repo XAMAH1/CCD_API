@@ -1,6 +1,6 @@
 from database.base import *
 import datetime
-from account.examination.check_time.time_check import time_check_error
+from examination.examination.check_time.time_check import time_check_error
 
 def examination_account_error(connect):
     now = datetime.datetime.now()
@@ -10,4 +10,4 @@ def examination_account_error(connect):
     for i in result:
         if i[3] == "В процессе":
             time_check_error(connect, i)
-    #   print("-" * 30)
+    print("-" * 30)

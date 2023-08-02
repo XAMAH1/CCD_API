@@ -7,7 +7,7 @@ import jwt
 from config import SECRET_KEY_PASSWORD
 from account.get.account import account
 from account.edit.edit import edit
-from examination_config.examination_config_start import config_start_exam
+from examination.examination_config_start import config_start_exam
 
 token = jwt.encode({"password": "271004"}, SECRET_KEY_PASSWORD, algorithm="HS256")
 print(token)
