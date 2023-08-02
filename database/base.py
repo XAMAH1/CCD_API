@@ -21,16 +21,17 @@ account = Table("account", meta,
                    Column("password", String(250), nullable=False),
                    Column("access_modifier", String(25), nullable=False),
                    Column("date_attachments", String(40), nullable=False),
-                   Column("date_parish", String(40), nullable=False)
+                   Column("date_parish", String(40), nullable=False),
                    )
 
 history_account = Table("history", meta,
                    Column("id", Integer, primary_key=True),
                    Column("login", String(100), nullable=False),
                    Column("id_user", String(40), nullable=False),
-                   Column("success", String(20), default="В процессе"),
+                   Column("success", String(250), default="В процессе"),
                    Column("date_parish", String(40), nullable=False),
-                   Column("time_parish", String(40), nullable=False)
+                   Column("time_parish", String(40), nullable=False),
+                   Column("date_expiration", String(40))
                    )
 
 def base_connect():

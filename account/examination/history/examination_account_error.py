@@ -8,5 +8,5 @@ def examination_account_error(connect):
     command = select(history_account).where(history_account.c.date_parish == current_date)
     result = connect.execute(command)
     for i in result:
-        time_check_error(connect, i)
-    print("-" * 30)
+        if i[3] == "В процессе":
+            time_check_error(connect, i)
