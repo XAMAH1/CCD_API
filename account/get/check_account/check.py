@@ -3,6 +3,8 @@ from database.base import *
 from account.get.recording.recording import record
 import datetime
 from flask import request
+from config import SECRET_KEY_PASSWORD, SECRET_KEY_PASSWORD_ACCOUNT_GET
+import jwt
 
 def check(connect, id):
     try:
@@ -23,7 +25,9 @@ def get_account_settings(connect, login, id_transaction):
     command = select(account).where(account.c.login == str(login))
     result = connect.execute(command)
     for i in result:
-        return {"id": i[0], "login": i[1], "password": i[2], "id_transaction": id_transaction}
+        password = jwt.decode(i[2], SECRET_KEY_PASSWORD, algorithms="HS256")
+        token = jwt.encode({"password": password["password"]}, SECRET_KEY_PASSWORD_ACCOUNT_GET, algorithm="HS256")
+        return {"id": i[0], "login": i[1], "password": token, "id_transaction": id_transaction}
 
 def all_account_get(connect):
     now = datetime.datetime.now()
