@@ -8,7 +8,7 @@ def edit_process_account_edit(connect):
     args = request.args
     date = date_generate()
     command = update(account).values({"date_attachments": date["today"], "date_parish": date["next_today"]}).where(account.c.login == args["login"])
-    result = connect.execute(command)
+    connect.execute(command)
     connect.commit()
 
 

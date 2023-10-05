@@ -5,7 +5,7 @@ from account.replenishment.replenishment import replenishment
 from database.base import base_connect
 from user.autme.user import user_autme
 import jwt
-from config import SECRET_KEY_PASSWORD
+from config import SECRET_KEY_PASSWORD, version
 from account.get.account import account
 from account.edit.edit import edit
 from examination.examination_config_start import config_start_exam
@@ -13,7 +13,7 @@ from account.process.process_edit import process_account_edit
 from account.registration.registration_account import registration_new_account
 from image.image import send_image
 
-print(jwt.encode({'password': 'pass'}, key=SECRET_KEY_PASSWORD, algorithm="HS256"))
+#print(jwt.decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjI3MTAwNFx1MDQzYVx1MDQzYVx1MDQzYSJ9._Ye1pRjsxq1ugs3Uelo_GpDr_YWVKC38cKF6JHscEMA", key=SECRET_KEY_PASSWORD, algorithms=["HS256"]))
 
 app = Flask(__name__)
 
@@ -43,7 +43,11 @@ def account_replenishment():
 
 @app.route('/server/photo', methods=['GET'])
 def download_file():
-    send_image()
+    return send_image()
+
+@app.route('/get/actual/version', methods=['GET'])
+def send_version_actual():
+    return {"version": version}
 
 if __name__ == '__main__':
     connect = base_connect()

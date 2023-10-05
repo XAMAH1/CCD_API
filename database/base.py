@@ -1,7 +1,6 @@
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 
-# engine = create_engine('mssql+pyodbc://DESKTOP-2NFCDE2/BCST?driver=ODBC Driver 11 for SQL Server')
 engine = create_engine('mysql+pymysql://root:root@localhost:3306/ccd')
 
 meta = MetaData()
