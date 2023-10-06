@@ -31,7 +31,8 @@ history_account = Table("history", meta,
                    Column("success", String(250), default="В процессе"),
                    Column("date_parish", String(40), nullable=False),
                    Column("time_parish", String(40), nullable=False),
-                   Column("date_expiration", String(40))
+                   Column("date_expiration", String(40)),
+                   Column("type_operation", String(40))
                    )
 
 def base_connect():

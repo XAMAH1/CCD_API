@@ -16,7 +16,7 @@ def check(connect, id):
         while job:
             current_account = random.choice(all_account)
             if current_account not in passed_account:
-                id = record(connect, current_account, id)
+                id = record(connect, current_account, id, "Процент")
                 return get_account_settings(connect, current_account, id)
     except:
         return {"success": True, "message": "аккаунтов больше нет"}

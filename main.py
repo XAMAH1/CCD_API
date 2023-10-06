@@ -11,7 +11,7 @@ from account.edit.edit import edit
 from examination.examination_config_start import config_start_exam
 from account.process.process_edit import process_account_edit
 from account.registration.registration_account import registration_new_account
-
+from image.image import send_image
 
 print(jwt.decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6InNxdnp0bHBtcG9wbiJ9.BF68y3I0dFiYDbMklnSPLNzBx2X_f3YAjR3Ks5G0vu8", key=SECRET_KEY_PASSWORD, algorithms=["HS256"]))
 
@@ -41,16 +41,9 @@ def account_registration():
 def account_replenishment():
     return replenishment(connect)
 
-@app.route('/download', methods=['GET'])
+@app.route('/server/photo', methods=['GET'])
 def download_file():
-    filename = request.args.get('filename')
-    if not filename:
-        return jsonify({'error': 'No filename provided'}), 400
-
-    try:
-        return send_file(filename, as_attachment=True)
-    except FileNotFoundError:
-        return jsonify({'error': 'File not found'}), 404
+    send_image()
 
 if __name__ == '__main__':
     connect = base_connect()
