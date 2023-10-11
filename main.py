@@ -13,7 +13,7 @@ from account.process.process_edit import process_account_edit
 from account.registration.registration_account import registration_new_account
 from image.image import send_image
 
-print(jwt.encode({'password': 'heyassbys'}, key=SECRET_KEY_PASSWORD, algorithm="HS256"))
+print(jwt.encode({'password': 'pass'}, key=SECRET_KEY_PASSWORD, algorithm="HS256"))
 
 app = Flask(__name__)
 
