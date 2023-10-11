@@ -26,7 +26,7 @@ def passed_account_get(connect):
             current_account.append(i[1])
     return current_account
 
-def get_account_null(connect):
+def get_account_null(connect, user_id):
     all_account = get_account_null_all(connect)
     passed_account = passed_account_get(connect)
     if len(all_account) <= len(passed_account):
@@ -36,6 +36,6 @@ def get_account_null(connect):
     while job:
         current_account = random.choice(all_account)
         if current_account not in passed_account:
-            id = record(connect, current_account, 1, "Пополнение")
+            id = record(connect, current_account, user_id, "Пополнение")
             return get_account_settings(connect, current_account, id)
     return {"success": True, "message": "аккаунтов больше нет"}
