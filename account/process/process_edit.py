@@ -16,5 +16,5 @@ def process_account_edit(connect):
     connect.commit()
     if result.rowcount != 0:
         edit_process_account_edit(connect)
-        return account(connect)
+        return {"success": True}     #account(connect)
     return {"success": False, "message": "Ошибка. У аккаунта уже установлен статус"}

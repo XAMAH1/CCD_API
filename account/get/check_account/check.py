@@ -32,7 +32,8 @@ def get_account_settings(connect, login, id_transaction):
 def all_account_get(connect):
     now = datetime.datetime.now()
     current_date = now.strftime("%d.%m.%Y")
-    command = select(account).where(account.c.date_parish == current_date, account.c.access_modifier == "user")
+    command = select(account).where(account.c.date_parish != "null", account.c.access_modifier == "user")
+    #command = select(account).where(account.c.date_parish == current_date, account.c.access_modifier == "user")
     result = connect.execute(command)
     current_account = []
     for i in result:

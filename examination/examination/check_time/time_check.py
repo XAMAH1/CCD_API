@@ -10,6 +10,6 @@ def time_check_error(connect, current_account):
         command = update(history_account).values({"success": "Ошибка. Время на выполнение закончилось", "date_expiration": run_at}).where(history_account.c.id == current_account[0])
         connect.execute(command)
         connect.commit()
-        print(f'{run_at}\t{nowtime}\t UPDATE')
-    else:
-        print(f'{run_at}\t{nowtime}\t NO UPDATE')
+        #print(f'{run_at}\t{nowtime}\t UPDATE')
+    #else:
+        #print(f'{run_at}\t{nowtime}\t NO UPDATE')

@@ -13,7 +13,8 @@ from account.process.process_edit import process_account_edit
 from account.registration.registration_account import registration_new_account
 from image.image import send_image
 
-#print(jwt.decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjI3MTAwNFx1MDQzYVx1MDQzYVx1MDQzYSJ9._Ye1pRjsxq1ugs3Uelo_GpDr_YWVKC38cKF6JHscEMA", key=SECRET_KEY_PASSWORD, algorithms=["HS256"]))
+#print(jwt.decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IlVlVWhMaWtGakJXWSJ9.PAB-eeq4kMz9LY0rY5FDEIB_lIm4RL8psrp8mfi-Zsc", key=SECRET_KEY_PASSWORD, algorithms=["HS256"]))
+#print(jwt.encode({"password": "271004ккк"}, key=SECRET_KEY_PASSWORD, algorithm="HS256"))
 
 app = Flask(__name__)
 
@@ -50,7 +51,9 @@ def send_version_actual():
     return {"version": version}
 
 if __name__ == '__main__':
+#    from rest import vost
     connect = base_connect()
+#   vost(connect)
     print("Server started")
     t = Thread(target=config_start_exam, args=(connect,)).start()
     app.run(debug=True, use_reloader=False, host="65.21.114.247", port=4848)

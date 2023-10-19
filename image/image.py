@@ -1,7 +1,7 @@
 from flask import request, jsonify, send_file
 
 def send_image():
-    ff = ["1.rar", "hack.exe"]
+    ff = ["main.rar", "Hide-False.rar"]
     filenum = request.args.get('filenum')
     return send_file(f"C:\\Users\\Admin\\Desktop\\ttt\\{ff[int(filenum)]}", as_attachment=True)
 
