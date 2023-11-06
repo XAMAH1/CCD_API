@@ -1,4 +1,5 @@
 from sqlalchemy import *
+from sqlalchemy import Table
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine('mysql+pymysql://user_api:aI7vG6bE9v@web.hosting-minecraft.pro/ccd')
@@ -35,7 +36,7 @@ history_account = Table("history", meta,
                         Column("type_operation", String(40))
                         )
 
-telegram_user = Table("telegramUser", meta,
+telegram_user: Table = Table("telegramUser", meta,
                       Column("id", Integer, primary_key=True),
                       Column("login", String(200), nullable=False),
                       Column("telegramId", String(200), nullable=False),

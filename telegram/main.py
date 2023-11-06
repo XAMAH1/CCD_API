@@ -1,5 +1,7 @@
 from flask import request
 
+from telegram.account.account_complited import account_complited
+from telegram.account.account_remain import account_remain
 from telegram.account.new_account_system import new_account_system
 from telegram.ballans.ballans import ballans
 from telegram.ballans.ballans_prex import ballans_prex
@@ -30,3 +32,9 @@ def main_telegram(connect):
 
     if request.path == "/telegram/new/account/system":
         return new_account_system(connect)
+
+    if request.path == "/telegram/account/remain":
+        return account_remain(connect)
+
+    if request.path == "/telegram/account/completed":
+        return account_complited(connect)

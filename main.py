@@ -144,6 +144,22 @@ def telegram_new_account_system():
     return res
 
 
+@app.route('/telegram/account/remain', methods=['GET'])
+def telegram_account_remcoain():
+    connect = base_connect()
+    res = main_telegram(connect)
+    connect.close()
+    return res
+
+
+@app.route('/telegram/account/completed', methods=['GET'])
+def telegram_account_complited():
+    connect = base_connect()
+    res = main_telegram(connect)
+    connect.close()
+    return res
+
+
 if __name__ == '__main__':
     print("Server started")
     t = Thread(target=config_start_exam, args=()).start()
