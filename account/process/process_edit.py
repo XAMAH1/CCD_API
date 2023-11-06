@@ -11,7 +11,7 @@ def process_account_edit(connect):
     args = request.args
     now = datetime.now()
     success_time = now.strftime("%d.%m.%Y %H:%M:%S")
-    command = update(history_account).values({"success": "Выполнено", "date_expiration": success_time}).where(history_account.c.id == args["id_transaction"], history_account.c.id_user == current_user["ID"], history_account.c.success == "В процессе")
+    command = update(history_account).values({"success": "Выполнено", "date_expiration": success_time, "cach": request.args["cach"]}).where(history_account.c.id == args["id_transaction"], history_account.c.id_user == current_user["ID"], history_account.c.success == "В процессе")
     result = connect.execute(command)
     connect.commit()
     if result.rowcount != 0:

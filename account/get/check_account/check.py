@@ -11,7 +11,7 @@ def check(connect, id):
         all_account = all_account_get(connect)
         passed_account = passed_account_get(connect)
         if len(all_account) <= len(passed_account):
-            return {"success": True, "message": "аккаунтов больше нет"}
+            return {"success": False, "message": "аккаунтов больше нет"}
         job = True
         while job:
             current_account = random.choice(all_account)
@@ -19,7 +19,7 @@ def check(connect, id):
                 id = record(connect, current_account, id, "Процент")
                 return get_account_settings(connect, current_account, id)
     except:
-        return {"success": True, "message": "аккаунтов больше нет"}
+        return {"success": False, "message": "аккаунтов больше нет"}
 
 def get_account_settings(connect, login, id_transaction):
     command = select(account).where(account.c.login == str(login))
@@ -27,7 +27,7 @@ def get_account_settings(connect, login, id_transaction):
     for i in result:
         password = jwt.decode(i[2], SECRET_KEY_PASSWORD, algorithms="HS256")
         token = jwt.encode({"password": password["password"]}, SECRET_KEY_PASSWORD_ACCOUNT_GET, algorithm="HS256")
-        return {"id": i[0], "login": i[1], "password": token, "id_transaction": id_transaction}
+        return {"id": i[0], "login": i[1], "password": token, "id_transaction": id_transaction, "success": True}
 
 def all_account_get(connect):
     now = datetime.datetime.now()
