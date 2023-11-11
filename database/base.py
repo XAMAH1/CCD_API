@@ -35,6 +35,21 @@ history_account = Table("history", meta,
                         Column("type_operation", String(40))
                         )
 
+telegram_user = Table("telegramUser", meta,
+                      Column("id", Integer, primary_key=True),
+                      Column("login", String(200), nullable=False),
+                      Column("telegramId", String(200), nullable=False),
+                      Column("userId", String(200), nullable=False),
+                      Column("isAdmin", Boolean, default=False),
+                      )
+
+telegram_user_expectation = Table("telegramUserExpectation", meta,
+                                  Column("id", Integer, primary_key=True),
+                                  Column("login", String(200), nullable=False),
+                                  Column("telegramId", String(200), nullable=False),
+                                  Column("isAdmin", Boolean, default=False),
+                                  )
+
 
 def base_connect():
     meta.create_all(engine)

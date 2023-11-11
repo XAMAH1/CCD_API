@@ -7,7 +7,7 @@ from database.base import *
 def edit_process_account_edit(connect):
     args = request.args
     date = date_generate()
-    command = update(account).values({"date_attachments": date["today"], "date_parish": date["next_today"]}).where(account.c.login == args["login"])
+    command = update(account).values({"date_attachments": date["today"], "date_parish": date["next_today"], "cach": int(request.args["cach"])}).where(account.c.login == args["login"])
     connect.execute(command)
     connect.commit()
 

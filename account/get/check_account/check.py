@@ -27,7 +27,8 @@ def get_account_settings(connect, login, id_transaction):
     for i in result:
         password = jwt.decode(i[2], SECRET_KEY_PASSWORD, algorithms="HS256")
         token = jwt.encode({"password": password["password"]}, SECRET_KEY_PASSWORD_ACCOUNT_GET, algorithm="HS256")
-        return {"id": i[0], "login": i[1], "password": token, "id_transaction": id_transaction, "success": True}
+        return {"id": i[0], "login": i[1], "password": password, "id_transaction": id_transaction, "success": True}
+       # return {"id": i[0], "login": i[1], "password": token, "id_transaction": id_transaction, "success": True}
 
 def all_account_get(connect):
     now = datetime.datetime.now()

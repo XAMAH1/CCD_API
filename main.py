@@ -3,6 +3,7 @@ from threading import Thread
 
 from account.replenishment.replenishment import replenishment
 from database.base import base_connect
+from telegram.main import main_telegram
 from user.autme.user import user_autme
 import jwt
 from config import SECRET_KEY_PASSWORD, version
@@ -14,10 +15,14 @@ from account.registration.registration_account import registration_new_account
 from image.image import send_image
 from save_error.save_error import save_err
 
-#print(jwt.decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IlVlVWhMaWtGakJXWSJ9.PAB-eeq4kMz9LY0rY5FDEIB_lIm4RL8psrp8mfi-Zsc", key=SECRET_KEY_PASSWORD, algorithms=["HS256"]))
-#print(jwt.encode({"password": "271004rrr"}, key=SECRET_KEY_PASSWORD, algorithm="HS256"))
+# print(jwt.decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IlVlVWhMaWtGakJXWSJ9.PAB-eeq4kMz9LY0rY5FDEIB_lIm4RL8psrp8mfi-Zsc", key=SECRET_KEY_PASSWORD, algorithms=["HS256"]))
+# print(jwt.encode({"password": "271004rrr"}, key=SECRET_KEY_PASSWORD, algorithm="HS256"))
+
+
+from database.base import *
 
 app = Flask(__name__)
+
 
 @app.route("/user/autme", methods=["GET"])
 def autme_user():
@@ -26,12 +31,14 @@ def autme_user():
     connect.close()
     return res
 
+
 @app.route("/account/get", methods=["GET"])
 def account_get_random():
     connect = base_connect()
     res = account(connect)
     connect.close()
     return res
+
 
 @app.route("/account/edit", methods=["GET"])
 def err_account():
@@ -40,12 +47,14 @@ def err_account():
     connect.close()
     return res
 
+
 @app.route("/account/process", methods=["GET"])
 def account_process():
     connect = base_connect()
     res = process_account_edit(connect)
     connect.close()
     return res
+
 
 @app.route("/account/registration", methods=["GET"])
 def account_registration():
@@ -54,6 +63,7 @@ def account_registration():
     connect.close()
     return res
 
+
 @app.route("/account/replenishment", methods=["GET"])
 def account_replenishment():
     connect = base_connect()
@@ -61,24 +71,87 @@ def account_replenishment():
     connect.close()
     return res
 
+
 @app.route('/server/photo', methods=['GET'])
 def download_file():
     return send_image()
 
+
 @app.route('/get/actual/version', methods=['GET'])
 def send_version_actual():
     return {"version": version}
+
 
 @app.route('/get/error', methods=['GET'])
 def get_error_programm():
     save_err()
     return {"success": True}
 
+
+@app.route('/telegram/account/new', methods=['POST'])
+def telegram_account_new():
+    connect = base_connect()
+    res = main_telegram(connect)
+    connect.close()
+    return res
+
+
+@app.route('/telegram/ccd/account/get/info', methods=['POST'])
+def telegram_ccd_account_get():
+    connect = base_connect()
+    res = main_telegram(connect)
+    connect.close()
+    return res
+
+
+@app.route('/telegram/ccd/account/get', methods=['GET'])
+def telegram_ccd_account_get_current():
+    connect = base_connect()
+    res = main_telegram(connect)
+    connect.close()
+    return res
+
+
+@app.route('/telegram/ballans', methods=['GET'])
+def telegram_ballans_proeb():
+    connect = base_connect()
+    res = main_telegram(connect)
+    connect.close()
+    return res
+
+
+@app.route('/telegram/info/ballans/account', methods=['GET'])
+def telegram_ballans_prognoz():
+    connect = base_connect()
+    res = main_telegram(connect)
+    connect.close()
+    return res
+
+
+def proeb():
+    connect = base_connect()
+    command = select(account)
+    result = connect.execute(command)
+    current_account = 0
+    for i in result:
+        current_account += int(i[6])
+    print(f'денег потеряно {current_account}р')
+    connect.close()
+
+
+@app.route('/telegram/get/isAdmin', methods=['GET'])
+def telegram_get_isAdmin():
+    connect = base_connect()
+    res = main_telegram(connect)
+    connect.close()
+    return res
+
+
 if __name__ == '__main__':
-#    from rest import vost
-    #connect = base_connect()
-#   vost(connect)
+    #    from rest import vost
+    # connect = base_connect()
+    #   vost(connect)
+    proeb()
     print("Server started")
     t = Thread(target=config_start_exam, args=()).start()
     app.run(debug=True, use_reloader=False, host="65.21.114.247", port=4848)
-
