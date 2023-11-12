@@ -128,17 +128,6 @@ def telegram_ballans_prognoz():
     return res
 
 
-def proeb():
-    connect = base_connect()
-    command = select(account)
-    result = connect.execute(command)
-    current_account = 0
-    for i in result:
-        current_account += int(i[6])
-    print(f'денег потеряно {current_account}р')
-    connect.close()
-
-
 @app.route('/telegram/get/isAdmin', methods=['GET'])
 def telegram_get_isAdmin():
     connect = base_connect()
@@ -147,11 +136,15 @@ def telegram_get_isAdmin():
     return res
 
 
+@app.route('/telegram/new/account/system', methods=['POST'])
+def telegram_new_account_system():
+    connect = base_connect()
+    res = main_telegram(connect)
+    connect.close()
+    return res
+
+
 if __name__ == '__main__':
-    #    from rest import vost
-    # connect = base_connect()
-    #   vost(connect)
-    proeb()
     print("Server started")
     t = Thread(target=config_start_exam, args=()).start()
     app.run(debug=True, use_reloader=False, host="65.21.114.247", port=4848)
